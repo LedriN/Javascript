@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home ~ Losydb</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header></header>
+
+    <section id="search" class="py-4 d-none">
+        <div class="container">
+            <input type="search" name="search" class="form-control" placeholder="Search Losy Movies..." />
+        </div>
+    </section>
+    <main class="hero">
+        <div class="hero-c">
+            <h1>Free Movies to Watch, <br> Anytime Anywhere.</h1>
+            <p>The search is over! Let Losy help you find the perfect <br> movie to watch tonight for free.</p>
+            <button class="watch-btn"><a href="/favourites.html" class="link">Watch favourites!</a></button>
+        </div>
+    </main>
+
+    <section id="pagination" class="py-4">
+        <div class="container">
+            <button class="btn btn-sm btn-outline-secondary" id="prev">
+                &#8592;
+            </button>
+            <span class="mx-2 current-page"></span>
+            <button class="btn btn-sm btn-outline-secondary" id="next">
+                &#8594;
+            </button>
+        </div>
+    </section>
+    <section id="movies" class="pb-4">
+        <div class="container">
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <h5>Losy</h5>
+        </div>
+        <div>
+            <h6>Navigation</h6>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/favourites.html">Favourites</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </div>
+        <div>
+            <h6>Social</h6>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>info@losy.com</li>
+            </ul>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script type="module">
+        import {Header} from './components/Header.js'
+        import {Movies} from './components/Movies.js'
+        let current_page = 1
+
+        // load header
+        document.querySelector('header').innerHTML = Header()
+
+        // show search panel
+        document.querySelector('#search-btn').addEventListener('click', (e) => {
+            e.preventDefault()
+            document.querySelector('#search').classList.toggle('d-none')
+        })
+
+        axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=3e52e2f5350ae60de5e2fc58e818d2a0`)
+        .then(resp => {
+            if(resp.status === 200) {
+                const movies = resp.data.results
+
+                document.querySelector('#movies > div').innerHTML = Movies(movies)
+                document.querySelector('#pagination span.current-page').innerHTML = resp.data.page
+            }
+        })
+
+        // prev page button
+        document.querySelectorAll('#pagination .btn').forEach(btn => btn.addEventListener('click', e => {
+            e.preventDefault();
+
+            switch(e.target.getAttribute('id')) {
+                case 'prev':
+                    if(current_page > 1) current_page--;
+                    break
+                case 'next':
+                    if(current_page !== 39352) current_page++;
+                    break
+            }
+
+            axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=3e52e2f5350ae60de5e2fc58e818d2a0&page=${current_page}`)
+            .then(resp => {
+                if(resp.status === 200) {
+                    const movies = resp.data.results
+
+                    document.querySelector('#movies > div').innerHTML = Movies(movies)
+                    document.querySelector('#pagination span.current-page').innerHTML = resp.data.page
+                }
+            })
+        }))
+
+        // search movies
+        const search_input = document.querySelector('#search input')
+
+        if(search_input !== null) {
+            search_input.addEventListener('keyup', e => {
+                e.preventDefault()
+
+                switch(e.keyCode) {
+                    case 13:
+                        document.querySelector('#pagination').classList.add('d-none')
+                        axios.get(`https://api.themoviedb.org/3/search/movie?query=${e.target. value}&api_key=3e52e2f5350ae60de5e2fc58e818d2a0`)
+                        .then(resp => {
+                            if(resp.status === 200) {
+                                const movies = resp.data.results
+
+                                document.querySelector('#movies > div').innerHTML = Movies(movies)
+                                document.querySelector('#pagination span.current-page').innerHTML = resp.data.page
+                            }
+                        })
+                    break
+                }
+            })
+        }
+    </script>
+</body>
+</html>

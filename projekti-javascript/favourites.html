@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | moviedb</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header></header>
+    <main class="fav-main">
+        <h2>Your Losy Favourites:</h2>
+    </main>
+    <section id="movies" class="py-5">
+        <div class="container">
+        </div>
+    </section>
+    <footer>
+        <div>
+            <h5>Losy</h5>
+        </div>
+        <div>
+            <h6>Navigation</h6>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/favourites.html">Favourites</a></li>
+                <li><a href="/about.html">About</a></li>
+            </ul>
+        </div>
+        <div>
+            <h6>Social</h6>
+            <ul>
+                <li>Facebook</li>
+                <li>Instagram</li>
+                <li>info@losy.com</li>
+            </ul>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="./node_modules/axios/dist/axios.min.js"></script>
+    <script type="module">
+        import {Header} from './components/Header.js'
+        import {Movies} from './components/Movies.js'
+
+        // load header
+        document.querySelector('header').innerHTML = Header()
+
+        const favourites = localStorage.getItem('favourites')
+
+        if(favourites === null)
+            document.querySelector('#movies > div').innerHTML = 'Your favourites list is empty.'
+        else
+            document.querySelector('#movies > div').innerHTML = Movies(JSON.parse(favourites))
+    </script>
+</body>
+</html>

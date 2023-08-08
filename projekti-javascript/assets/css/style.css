@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: #fafafa;
+    font-family: 'Poppins', sans-serif;
+}
+
+#movies .card:hover {
+    box-shadow: rgb(38, 57, 77) 0px 8px 15px -10px;
+}
+
+.navbar {
+    background-color: #161616 !important;
+}
+
+.card-text {
+    font-weight: 200;
+    font-style: italic;
+}
+
+.nav-item, .navbar-brand {
+    color: #E5A00D !important;
+
+}
+.nav-link, .navbar-brand {
+    color: #E5A00D !important;
+
+}
+
+.btn-outline-secondary:hover {
+    background: #E5A00D;
+
+}
+.btn-outline-secondary {
+border: 0.5px solid black;
+}
+
+#search-btn {
+    border: .5px solid #E5A00D;
+}
+
+#search-btn:active, ::after, :focus{
+    background-color: #E5A00D !important;
+}
+
+#search-btn:hover {
+    background-color: #E5A00D !important;
+
+}
+
+.bi-search {
+    color: #fff !important;
+}
+
+.hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    padding-left: 98px;
+    background-image: url(../images/heroimg.png);
+}
+
+.hero h1 {
+    font-size: 3.1em;
+}
+
+.watch-btn {
+    width: 180.156px;
+    height: 60px;
+    border-radius: 1000px;
+    font-weight: 600;
+    font-style: normal;
+    background-color: #E5A00D;
+    color: white;
+    outline: none;
+    border: 0;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
+.movie-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+.fav-main {
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    margin-left: 120px;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: .5px solid #161616;
+    padding: 0px 120px;
+    color: #161616;
+}
+
+footer div {
+margin-top: 30px;
+
+}
+
+footer ul li {
+list-style-type: none;
+}
+
+footer ul li a {
+    text-decoration: none;
+    color: #161616;
+}
